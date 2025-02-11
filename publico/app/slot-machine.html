@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot Machine</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #2c3e50;
+            font-family: Arial, sans-serif;
+        }
+
+        .slot-machine {
+            background: #e74c3c;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .credit-display {
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .wheels {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .wheel {
+            width: 80px;
+            height: 100px;
+            background: #fff;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .symbol {
+            position: absolute;
+            transition: top 0.1s;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            background: #f1c40f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #f39c12;
+        }
+
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .win-message {
+            text-align: center;
+            color: #fff;
+            font-size: 1.2em;
+            margin-top: 10px;
+            min-height: 25px;
+        }
+
+        .paytable {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        .paytable h3 {
+            margin: 0 0 5px 0;
+            text-align: center;
+        }
+
+        .paytable div {
+            display: flex;
+            justify-content: space-between;
+            margin: 2px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slot-machine">
+        <div class="credit-display">Crédito: <span id="credit">300</span></div>
+        <div class="wheels">
+            <div class="wheel" id="wheel1"><span class="symbol">⭐</span></div>
+            <div class="wheel" id="wheel2"><span class="symbol">⭐</span></div>
+            <div class="wheel" id="wheel3"><span class="symbol">⭐</span></div>
+            <div class="wheel" id="wheel4"><span class="symbol">⭐</span></div>
+        </div>
+        <button id="playButton">¡Tirar de la palanca! (50 créditos)</button>
+        <div class="win-message" id="winMessage"></div>
+        <div class="paytable">
+            <h3>Tabla de Premios</h3>
+            <div><span>⭐⭐⭐⭐ = x100</span><span>5000</span></div>
+            <div><span>🎰🎰🎰🎰 = x50</span><span>2500</span></div>
+            <div><span>🍒🍒🍒🍒 = x30</span><span>1500</span></div>
+            <div><span>🍎🍎🍎🍎 = x20</span><span>1000</span></div>
+            <div><span>✖️✖️✖️✖️ = x10</span><span>500</span></div>
+            <div><span>3 iguales = x2-5</span><span>100-250</span></div>
+            <a href="/app/index-app.html"><button class="back-button">Volver al inicio</button></a>
+        </div>
+    </div>
+    <script type="module" src="../../js/crack.js"></script>
+    <script>
+        const wheels = document.querySelectorAll('.wheel');
+        const playButton = document.getElementById('playButton');
+        const creditDisplay = document.getElementById('credit');
+        const winMessage = document.getElementById('winMessage');
+        let isSpinning = false;
+        let credit = 300;
+        const SPIN_COST = 50;
+
+        const symbols = ['⭐', '🍎', '🍒', '✖️', '🎰'];
+
+        function countSymbols(results) {
+            const counts = {};
+            results.forEach(symbol => {
+                counts[symbol] = (counts[symbol] || 0) + 1;
+            });
+            return counts;
+        }
+
+        function getMultiplier(symbol, count) {
+            if(count === 4) {
+                switch(symbol) {
+                    case '⭐': return 100;
+                    case '🎰': return 50;
+                    case '🍒': return 30;
+                    case '🍎': return 20;
+                    case '✖️': return 10;
+                }
+            } else if(count === 3) {
+                switch(symbol) {
+                    case '⭐': return 5;
+                    case '🎰': return 4;
+                    case '🍒': return 3;
+                    case '🍎': return 2;
+                    default: return 2;
+                }
+            }
+            return 0;
+        }
+
+        function updateCredit(amount) {
+            credit += amount;
+            creditDisplay.textContent = credit;
+        }
+
+        function checkWin(results) {
+            const symbolCounts = countSymbols(results);
+            let maxMultiplier = 0;
+            let winningSymbol = '';
+            let winningCount = 0;
+
+            for (const [symbol, count] of Object.entries(symbolCounts)) {
+                if (count >= 3) {
+                    const multiplier = getMultiplier(symbol, count);
+                    if (multiplier > maxMultiplier) {
+                        maxMultiplier = multiplier;
+                        winningSymbol = symbol;
+                        winningCount = count;
+                    }
+                }
+            }
+
+            if (maxMultiplier > 0) {
+                const winAmount = SPIN_COST * maxMultiplier;
+                updateCredit(winAmount);
+                winMessage.textContent = `¡Ganaste ${winAmount} créditos! (${winningSymbol.repeat(winningCount)} - x${maxMultiplier})`;
+                return true;
+            }
+            winMessage.textContent = '¡Inténtalo de nuevo!';
+            return false;
+        }
+
+        function randomSymbol() {
+            return symbols[Math.floor(Math.random() * symbols.length)];
+        }
+
+        function animateSymbol(wheel, duration) {
+            const symbolElement = wheel.querySelector('.symbol');
+            let startTime = null;
+            let currentPos = 0;
+
+            function animate(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const progress = currentTime - startTime;
+
+                if (progress < duration) {
+                    currentPos += 20;
+                    symbolElement.style.top = `${currentPos % 100 - 50}px`;
+                    symbolElement.textContent = randomSymbol();
+                    requestAnimationFrame(animate);
+                } else {
+                    symbolElement.style.top = '0px';
+                    symbolElement.textContent = randomSymbol();
+                    return symbolElement.textContent;
+                }
+            }
+
+            return new Promise(resolve => {
+                requestAnimationFrame(animate);
+                setTimeout(() => resolve(wheel.querySelector('.symbol').textContent), duration);
+            });
+        }
+
+        async function spin() {
+            if (isSpinning || credit < SPIN_COST) return;
+            
+            isSpinning = true;
+            playButton.disabled = true;
+            updateCredit(-SPIN_COST);
+            winMessage.textContent = '';
+
+            const results = await Promise.all(
+                Array.from(wheels).map((wheel, index) => 
+                    animateSymbol(wheel, 1000 + (index * 500))
+                )
+            );
+
+            checkWin(results);
+            isSpinning = false;
+            playButton.disabled = credit < SPIN_COST;
+        }
+
+        playButton.addEventListener('click', spin);
+    </script>
+</body>
+</html>

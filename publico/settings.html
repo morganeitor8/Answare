@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - SportivoTessa</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/subweb-productos.css">
+    <link rel="stylesheet" href="css/web-tiket.css">
+    <link rel="stylesheet" href="css/web-key.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header principal fuera del sidebar -->
+    <div class="sidebar-header">
+        <a href="/slot-machine.html"><img src="assets/logo.png" alt="Logo" class="logo"></a>
+        <h2>Administración</h2>
+    </div>
+
+    <div class="admin-container">
+        <!-- Menú lateral -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-page="productos">
+                    <img src="assets/agregar.png" alt="Productos">
+                    Productos
+                </button>
+                <button class="nav-btn" data-page="tiket">
+                    <img src="assets/doc.png" alt="hoja">
+                    Remitos
+                </button>
+                <button class="nav-btn" data-page="key">
+                    <img src="assets/red.png" alt="red">
+                    Movil
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/" class="btn-volver">
+                    <img src="assets/casa.png" alt="Volver">
+                    Volver a la tienda
+                </a>
+            </div>
+        </aside>
+
+        <!-- Área principal de contenido -->
+        <main class="content">
+            <!-- Página de Productos -->
+            <div class="page active productos-page-container" id="productos-page">
+                <div class="page-header">
+                    <h1>Gestión de Productos</h1>
+                    <button class="btn-agregar">
+                        <img src="assets/agregar.png" alt="Agregar">
+                        Agregar Producto
+                    </button>
+                </div>
+
+                <div class="productos-tabla">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productos-tbody">
+                            <!-- Los productos se cargarán dinámicamente desde JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal de eliminar -->
+                <div id="modal-eliminar" class="modal">
+                    <div class="modal-content">
+                        <h2>Confirmar eliminación</h2>
+                        <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                        <div class="modal-buttons">
+                            <button class="btn-cancelar">Cancelar</button>
+                            <button class="btn-confirmar">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de edición -->
+                <div id="modal-editar" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <img id="edit-imagen-principal" src="" alt="Producto">
+                            <h2 id="edit-titulo-actual"></h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="edit-nombre">Nombre:</label>
+                                <input type="text" id="edit-nombre" class="form-control">
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-precio">Precio:</label>
+                                <input type="number" id="edit-precio" class="form-control" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Imágenes:</label>
+                                <div id="edit-imagenes" class="imagenes-grid"></div>
+                                <div class="imagen-botones">
+                                    <button class="btn-modo-eliminar">Eliminar Imagen</button>
+                                    <input type="file" id="add-imagen" accept="image/*" hidden>
+                                    <button class="btn-agregar-imagen">
+                                        <label for="add-imagen" style="cursor: pointer; display: block;">
+                                            Añadir Imagen
+                                        </label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button class="btn-cancelar">Cancelar</button> -->
+                            <button class="btn-guardar">
+                                <img src="assets/disk.png" alt="Guardar">
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de agregar producto -->
+                <div id="modal-agregar" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <img id="add-imagen-principal" src="assets/not-img.jpg" alt="Nuevo Producto">
+                            <h2>Nuevo Producto</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="add-nombre">Nombre:</label>
+                                <input type="text" id="add-nombre" class="form-control">
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-precio">Precio:</label>
+                                <input type="number" id="add-precio" class="form-control" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Imágenes:</label>
+                                <div id="add-imagenes" class="imagenes-grid"></div>
+                                <div class="imagen-botones">
+                                    <button class="btn-modo-eliminar">Eliminar Imagen</button>
+                                    <input type="file" id="add-imagen-nuevo" accept="image/*" hidden>
+                                    <button class="btn-agregar-imagen">
+                                        <label for="add-imagen-nuevo" style="cursor: pointer; display: block;">
+                                            Añadir Imagen
+                                        </label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button class="btn-cancelar">Cancelar</button> -->
+                            <button class="btn-crear">
+                                <img src="assets/disk.png" alt="Crear">
+                                Crear Producto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="module" src="js/web-productos.js"></script>
+            </div>
+
+            <!-- Página de recibos -->
+            <div class="page tiket-page-container" id="tiket-page">
+                <div class="page-header">
+                    <h1>Gestor de remitós</h1>
+                </div>
+                <div class="estadisticas-contenido">
+                    <!-- El contenido se cargará dinámicamente desde web-tiket.js -->
+                </div>
+
+                <!-- Modal de confirmación para eliminar remito -->
+                <div id="modal-eliminar-remito" class="modal">
+                    <div class="modal-content">
+                        <h2>Confirmar eliminación</h2>
+                        <p>¿Estás seguro de que deseas eliminar este remito?</p>
+                        <div class="modal-buttons">
+                            <button class="btn-cancelar">Cancelar</button>
+                            <button class="btn-confirmar">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="module" src="js/web-tiket.js"></script>
+            </div>  
+
+            <!-- Página de key -->
+            <div class="page" id="key-page">
+                <div class="page-header">
+                    <h1>Gestor de Conexiones</h1>
+                </div>
+                <div class="estadisticas-contenido">
+                    <!-- El contenido se cargará dinámicamente desde web-key.js -->
+                </div>
+
+                <!-- Modal para nueva conexión -->
+                <div id="modal-nueva-conexion" class="modal">
+                    <div class="modal-content">
+                        <h2>Nueva Conexión</h2>
+                        <div class="qr-container">
+                            <!-- Aquí se mostrará el código QR -->
+                        </div>
+                        <p>Escanea el código QR con la aplicación móvil</p>
+                        <div class="modal-buttons">
+                            <button class="btn-cancelar">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de confirmación para eliminar conexión -->
+                <div id="modal-eliminar-conexion" class="modal">
+                    <div class="modal-content">
+                        <h2>Confirmar eliminación</h2>
+                        <p>¿Estás seguro de que deseas eliminar esta conexión?</p>
+                        <div class="modal-buttons">
+                            <button class="btn-cancelar">Cancelar</button>
+                            <button class="btn-confirmar">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Luego nuestro script -->
+                <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+                <script type="module" src="js/web-key.js"></script>
+            </div>            
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type="module" src="js/crack.js"></script>
+    <script type="module" src="js/settings.js"></script>
+    <script type="module" src="js/web-tiket.js"></script>
+
+    <!-- Agregar al final del body, antes de los scripts -->
+    <div id="notificaciones" class="notificaciones-container">
+        <div id="notificacion-exito" class="notificacion exito">
+            <span class="mensaje"></span>
+        </div>
+        <div id="notificacion-error" class="notificacion error">
+            <span class="mensaje"></span>
+        </div>
+    </div>
+</body>
+</html>

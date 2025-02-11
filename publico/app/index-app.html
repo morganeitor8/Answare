@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SportivoTessa</title>
+    <link rel="icon" type="image/png" href="../../assets/logo.png">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <!-- Header móvil -->
+    <header class="app-header">
+        <div class="logo-titulo">
+            <img src="/assets/logo.png" alt="Logo" class="logo">
+            <h1>SportivoTessa</h1>
+            <button id="btn-config" class="btn-config">⚙️</button>
+        </div>
+    </header>
+    
+    <!-- Agregar justo después del header -->
+    <div id="modal-overlay" class="modal-overlay"></div>
+
+    <!-- Buscador -->
+    <div class="buscador-container">
+        <input type="text" id="buscador" placeholder="Buscar productos...">
+    </div>
+
+    <!-- Grid de productos -->
+    <main>
+        <section id="productos-temporada" class="productos-grid">
+            <!-- Los productos se cargarán aquí -->
+        </section>
+    </main>
+
+    <!-- Carrito minimizado -->
+    <div id="carrito-minimizado" class="carrito-minimizado">
+        <div class="carrito-info">
+            <span id="total-carrito">Total: $0</span>
+            <span id="cantidad-items">(0 items)</span>
+        </div>
+        <button id="btn-abrir-carrito" class="btn-carrito">
+            Ver Carrito
+        </button>
+    </div>
+
+    <!-- Panel del carrito -->
+    <div id="carrito-panel" class="carrito-panel">
+        <div class="carrito-header">
+            <h2>Tu Carrito</h2>
+        </div>
+
+        <div id="carrito-items" class="carrito-lista">
+            <!-- Items del carrito -->
+        </div>
+
+        <div class="carrito-footer">
+            <button id="btn-cerrar-carrito" class="btn-carrito">
+                Cerrar
+            </button>
+            <button id="finalizar-compra" class="btn-carrito">
+                Finalizar Compra
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de configuración -->
+    <div id="config-modal" class="config-modal">
+        <div class="config-header">
+            <h2>Configuración</h2>
+            <button id="btn-cerrar-config" class="btn-cerrar-config">✕</button>
+        </div>
+        <div class="config-content">
+            <div class="config-item" onclick="window.location.href='/app/settings-app.html'">
+                <img src="/assets/agregar.png" alt="Administrar">
+                <span>Administrar</span>
+            </div>
+            <div class="config-item">
+                <div class="toggle-switch">
+                    <input type="checkbox" id="modo-offline">
+                    <label for="modo-offline">Modo Offline</label>
+                </div>
+            </div>
+            <div class="config-item" onclick="window.location.href='/app/slot-machine.html'">
+                <span class="info-icon">ⓘ</span>
+                <span>Info de App</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agregar antes del cierre del body -->
+    <div class="notificacion exito">
+        <div class="icono">✓</div>
+        <div class="mensaje"></div>
+    </div>
+
+    <div class="notificacion error">
+        <div class="icono">✕</div>
+        <div class="mensaje"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Scripts de la app -->
+    <script type="module" src="../../js/crack.js"></script>
+    <script type="module" src="js/productos-app.js"></script>
+    <script type="module" src="js/carrito-app.js"></script>
+    <script type="module" src="js/index-app.js"></script>
+    <script type="module" src="js/settings-app.js"></script>
+</body>
+</html>

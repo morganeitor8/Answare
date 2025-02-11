@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Login - SportivoTessa</title>
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="stylesheet" href="login-app.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="logo-titulo">
+            <img src="/assets/logo.png" alt="Logo">
+            <h1>SportivoTessa</h1>
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <div class="login-container">
+        <!-- Área de escaneo -->
+        <div class="scan-area">
+            <video id="qr-video" playsinline></video>
+            <div class="scan-overlay">
+                <div class="scan-line"></div>
+            </div>
+        </div>
+
+        <!-- Botón de escaneo -->
+        <button id="btn-scan" class="btn-scan">Escanear QR</button>
+
+        <!-- Mensaje de estado -->
+        <div id="status-message" class="message">
+            Presiona el botón para escanear
+        </div>
+
+        <!-- Opción manual -->
+        <button id="toggle-manual" class="toggle-manual">
+            ¿No puedes escanear? Ingresa manualmente
+        </button>
+
+        <!-- Formulario manual (oculto por defecto) -->
+        <form id="password-form" class="password-form">
+            <input type="password" 
+                   id="manual-password"
+                   class="password-input"
+                   placeholder="Ingresa la contraseña"
+                   required>
+            <button type="submit" class="submit-btn">Ingresar</button>
+        </form>
+
+        <!-- Opción para volver al inicio si estas autenticado -->
+        <p>¿Estas aqui por error?</p>
+        <a href="/app/index-app.html"><button class="submit-btn">Acceder al inicio</button></a>
+    </div>
+
+    <script src="https://unpkg.com/qr-scanner/qr-scanner.umd.min.js"></script>
+    <script type="module" src="../js/crack.js"></script>
+    <script type="module" src="auth-app.js"></script>
+</body>
+</html> 

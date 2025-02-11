@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportivoTessa</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/carrito.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+</head>
+<body>
+    <div class="hero-section">
+        <header>
+            <div class="logo-titulo">
+                <img src="assets/logo.png" alt="Logo" class="logo">
+                <h1>Tienda SportivoTessa</h1>
+            </div>
+            <div id="temporada-info" class="temporada-banner">
+                <!-- Aquí se muestra la temporada actual -->
+            </div>
+        </header>
+    </div>
+    
+    <div class="contenedor-principal">
+        <!-- Contenedor izquierdo con buscador y productos -->
+        <div class="contenedor-productos">
+            <!-- Buscador -->
+            <div class="buscador-container">
+                <div class="buscador-grid">
+                    <div class="admin-column">
+                        <div class="producto-card admin-card" id="btn-admin" onclick="window.location.href='/settings.html'">
+                            <img src="assets/agregar.png" alt="Agregar producto">
+                            <div class="producto-info">
+                                <h3>Administrar</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-column">
+                        <div class="buscador-wrapper">
+                            <input type="text" id="buscador" placeholder="Buscar productos...">
+                            <button id="btn-buscar">
+                                🔍
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid de productos -->
+            <section id="productos-temporada" class="productos-grid">
+                <!-- Aquí se cargan los productos -->
+            </section>
+
+            <div id="paginacion" class="paginacion">
+                <!-- Controles de paginación -->
+            </div>
+        </div>
+
+        <!-- Carrito -->
+        <div id="carrito-panel" class="carrito-panel">
+            <div class="carrito-header">
+                <h2>Tu Carrito</h2>
+            </div>
+
+            <div id="carrito-vacio" class="carrito-mensaje">
+                <img src="assets/carrito.png" alt="Carrito vacío" class="carrito-vacio-img">
+                <p>¡Aqui se mostraran los productos que agregues!</p>
+            </div>
+
+            <div id="carrito-items" class="carrito-lista">
+                <!-- Aquí se mostrarán los items del carrito -->
+            </div>
+
+            <div class="carrito-footer">
+                <div id="total-carrito">Total: $0</div>
+                <button id="finalizar-compra" class="btn-comprar">
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/crack.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script type="module" src="js/remitos/remito-template.js"></script>
+    <script type="module" src="js/remitos/generador-pdf.js"></script>
+    <script type="module" src="js/carrito.js"></script>
+    <script type="module" src="js/productos.js"></script>
+    <script type="module" src="js/index.js"></script>
+</body>
+</html>

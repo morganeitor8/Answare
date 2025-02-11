@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Remito - Sportivo Tessa</title>
+    <link rel="stylesheet" href="css/list.css">
+</head>
+<body>
+    <div class="hojas-container">
+        <div class="hoja-a4">
+            <div class="marco-remito">
+                <div class="remito-completo">
+                    <div class="header-section">
+                        <div class="logo-container">
+                            <img src="assets/logo.png" alt="Logo">
+                        </div>
+                        <div class="doc-info">
+                            <div class="x-mark">"X"</div>
+                            <div class="doc-text">
+                                DOCUMENTO NO
+                                VALIDO COMO
+                                FACTURA
+                            </div>
+                        </div>
+                        <div class="qr-section">
+                            <div class="remito-title">
+                                REMITO <span class="small-text">mercaderia en transito</span>
+                            </div>
+                            <img src="assets/qr.png" alt="QR Code">
+                            <div class="tel-number">TEL.: 1159529794</div>
+                        </div>
+                    </div>
+
+                    <div class="address-section">
+                        <div>FLORES - C/BOGOTA 3229 - LOCAL 27</div>
+                        <div class="second-line">
+                            <span>"GALERIA LAS ESTRELLAS"</span>
+                            <span class="fecha-hora">[<span id="fecha-actual"></span> <span id="hora-actual"></span>]</span>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <div class="label">SEÑOR/ES:</div>
+                            <div class="value"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="label">DOMICILIO:</div>
+                            <div class="value"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="label">LOCALIDAD:</div>
+                            <div class="value"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="label">TELEFONO:</div>
+                            <div class="value"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="label small-text">CODIGO POSTAL</div>
+                            <div class="value"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="label">DNI</div>
+                            <div class="value"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="label">CLIENTE</div>
+                            <div class="value"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="label">TRANSPORTE</div>
+                            <div class="value"></div>
+                        </div>
+                    </div>
+
+                    <div class="iva-section">
+                        <div class="iva-label">IVA</div>
+                        <div class="iva-content">
+                            <div class="iva-row">
+                                <div class="iva-option">
+                                    <span>Resp.inscr</span>
+                                    <div class="checkbox"></div>
+                                </div>
+                                <div class="iva-option">
+                                    <span>Respo. No inscr.</span>
+                                    <div class="checkbox"></div>
+                                </div>
+                                <div class="iva-option">
+                                    <span>No Inscr.</span>
+                                    <div class="checkbox"></div>
+                                </div>
+                                <div class="cuit-label">C.U.I.T.:</div>
+                            </div>
+                            <div class="iva-row">
+                                <div class="iva-option">
+                                    <span>Exento</span>
+                                    <div class="checkbox"></div>
+                                </div>
+                                <div class="iva-option">
+                                    <span>Cons. Final</span>
+                                    <div class="checkbox"></div>
+                                </div>
+                                <div class="iva-option">
+                                    <span>Resp. Monotr.</span>
+                                    <div class="checkbox"></div>
+                                </div>
+                                <div class="cuit-number">0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="venta-section">
+                        <div class="venta-label">CONDICIONES DE VENTA:</div>
+                        <div class="venta-options">
+                            <div class="venta-option">
+                                <span>Contado</span>
+                                <div class="checkbox"></div>
+                            </div>
+                            <div class="venta-option">
+                                <span>Cuenta corriente</span>
+                                <div class="checkbox"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="remitimos-title">REMITIMOS A USTEDES LO SIGUIENTE:</div>
+
+                    <div class="productos-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>CANTIDAD</th>
+                                    <th>DESCRIPCION</th>
+                                    <th>P.UNITARIO</th>
+                                    <th>IMPORTE</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productos-lista">
+                                <!-- Los productos se insertarán dinámicamente aquí -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="totals-section">
+                        <div class="bultos-section">BULTOS:</div>
+                        <div class="valor-section">VALOR DECLARADO</div>
+                        <div class="total-section">
+                            <span>TOTAL</span>
+                            <span id="total"></span>
+                        </div>
+                    </div>
+
+                    <div class="firma-section">
+                        <div class="firma-empty-row">
+                            <div class="empty-space"></div>
+                            <div class="right-side">
+                                <div class="dotted-line-container">
+                                    <div class="dotted-line">.........................</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="firma-row">
+                            <div class="label small-text">TRANSPORTISTA</div>
+                            <div class="value-space"></div>
+                            <div class="right-side">RECIBI CONFORME</div>
+                        </div>
+                        <div class="firma-row">
+                            <div class="label">C.U.I.T.</div>
+                            <div class="value"></div>
+                            <div class="right-side">
+                                <div class="dotted-line">.........................</div>
+                            </div>
+                        </div>
+                        <div class="firma-row">
+                            <div class="label">FIRMA</div>
+                            <div class="value"></div>
+                            <div class="right-side">RECIBI CONFORME</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/crack.js"></script>
+    <script type="module" src="js/list.js"></script>
+</body>
+</html> 

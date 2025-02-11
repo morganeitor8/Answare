@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Administración - SportivoTessa</title>
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/web-productos-app.css">
+    <link rel="stylesheet" href="css/web-remitos-app.css">
+    <link rel="stylesheet" href="css/web-key-app.css">
+</head>
+<body>
+    <!-- Header móvil -->
+    <header class="app-header">
+        <div class="logo-titulo">
+            <button id="btn-volver" class="btn-volver"><img src="../../assets/casa.png" alt="←"></button>
+            <h1>Administración</h1>
+        </div>
+    </header>
+
+    <!-- Navegación de pestañas -->
+    <nav class="tabs-nav">
+        <button class="tab-btn active" data-page="productos">
+            <img src="/assets/agregar.png" alt="Productos">
+            <span>Productos</span>
+        </button>
+        <button class="tab-btn" data-page="remitos">
+            <img src="/assets/doc.png" alt="Remitos">
+            <span>Remitos</span>
+        </button>
+        <button class="tab-btn" data-page="key">
+            <img src="/assets/red.png" alt="Móvil">
+            <span>Móvil</span>
+        </button>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="settings-content">
+        <!-- Página de Productos -->
+        <div class="page active" id="productos-page">
+            <div class="productos-page-container">
+                <!-- Header con botón agregar -->
+                <div class="productos-header">
+                    <button class="btn-agregar">
+                        <img src="/assets/agregar.png" alt="Agregar">
+                        <span>Nuevo Producto</span>
+                    </button>
+                </div>
+
+                <!-- Contenedor de la cuadrícula de productos -->
+                <div class="productos-grid">
+                    <!-- Los productos se cargarán aquí -->
+                    <div class="loading-message">Cargando productos...</div>
+                </div>
+
+                <!-- Modal de Edición -->
+                <div id="modal-editar" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Editar Producto</h2>
+                            <button class="btn-cerrar">✕</button>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" id="edit-nombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="number" id="edit-precio" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Imágenes</label>
+                            <div id="edit-imagenes" class="imagenes-grid"></div>
+                            <div class="imagen-botones">
+                                <input type="file" id="add-imagen" accept="image/*" style="display: none;">
+                                <button class="btn-agregar-imagen" onclick="document.getElementById('add-imagen').click()">
+                                    Agregar Imagen
+                                </button>
+                                <button class="btn-modo-eliminar">Eliminar Imágenes</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn-cancelar">Cancelar</button>
+                            <button class="btn-guardar">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de Eliminación -->
+                <div id="modal-eliminar" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Eliminar Producto</h2>
+                            <button class="btn-cerrar">✕</button>
+                        </div>
+                        <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                        <div class="modal-footer">
+                            <button class="btn-cancelar">Cancelar</button>
+                            <button class="btn-confirmar">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de Opciones -->
+                <div id="modal-opciones" class="modal">
+                    <div class="modal-content">
+                        <div class="opciones-lista">
+                            <button class="opcion-btn" onclick="gestorProductosApp.editarProducto()">
+                                ✏️ Editar
+                            </button>
+                            <button class="opcion-btn" onclick="gestorProductosApp.toggleVisibilidad()">
+                                👁️ Visibilidad
+                            </button>
+                            <button class="opcion-btn opcion-borrar" onclick="gestorProductosApp.confirmarEliminar()">
+                                🗑️ Eliminar
+                            </button>
+                        </div>
+                        <button class="btn-cancelar">Cancelar</button>
+                    </div>
+                </div>
+
+                <!-- Modal de Edición -->
+                <div id="modal-editar" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Editar Producto</h2>
+                            <button class="btn-cerrar">✕</button>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" id="edit-nombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="number" id="edit-precio" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Imágenes</label>
+                            <div id="edit-imagenes" class="imagenes-grid"></div>
+                            <div class="imagen-botones">
+                                <input type="file" id="add-imagen" accept="image/*" style="display: none;">
+                                <button class="btn-agregar-imagen" onclick="document.getElementById('add-imagen').click()">
+                                    Agregar Imagen
+                                </button>
+                                <button class="btn-modo-eliminar">Eliminar Imágenes</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn-cancelar">Cancelar</button>
+                            <button class="btn-guardar">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de Agregar -->
+                <div id="modal-agregar" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Nuevo Producto</h2>
+                            <button class="btn-cerrar">✕</button>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" id="add-nombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="number" id="add-precio" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Imágenes</label>
+                            <div id="add-imagenes" class="imagenes-grid"></div>
+                            <div class="imagen-botones">
+                                <input type="file" id="add-imagen-nuevo" accept="image/*" style="display: none;">
+                                <button class="btn-agregar-imagen" onclick="document.getElementById('add-imagen-nuevo').click()">
+                                    Agregar Imagen
+                                </button>
+                                <button class="btn-modo-eliminar">Eliminar Imágenes</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn-cancelar">Cancelar</button>
+                            <button class="btn-crear">Crear</button>
+                        </div>
+                    </div>
+                </div>
+                <script type="module" src="js/web-productos-app.js"></script>
+            </div>
+        </div>
+
+        <!-- Página de Remitos -->
+        <div class="page" id="remitos-page">
+            <div class="remitos-page-container">
+                <div class="remitos-dashboard">
+                    <!-- Lista de remitos -->
+                    <div class="remitos-list">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha y Hora</th>
+                                    <th>N° Remito</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="remitos-tbody">
+                                <!-- Los remitos se cargarán dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Modal de Eliminación -->
+                <div id="modal-eliminar-remito" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Eliminar Remito</h2>
+                            <button class="btn-cerrar">✕</button>
+                        </div>
+                        <p>¿Estás seguro de que deseas eliminar este remito?</p>
+                        <div class="modal-footer">
+                            <button class="btn-cancelar">Cancelar</button>
+                            <button class="btn-confirmar">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Script específico de remitos -->
+                <script type="module" src="js/web-remitos-app.js"></script>
+            </div>
+        </div>
+
+        <!-- Página de Móvil -->
+        <!-- Página de key para móvil -->
+        <div class="page" id="key-page">
+            <div class="estadisticas-contenido">
+                <!-- El contenido se cargará dinámicamente desde web-key-app.js -->
+            </div>
+
+            <!-- Modal para nueva conexión -->
+            <div id="modal-nueva-conexion" class="modal">
+                <div class="modal-content">
+                    <h2>Nueva Conexión</h2>
+                    <div class="qr-container">
+                        <!-- Aquí se mostrará el código QR -->
+                    </div>
+                    <p>Escanea el código QR con la aplicación móvil</p>
+                    <div class="modal-buttons">
+                        <button class="btn-cancelar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de confirmación para eliminar conexión -->
+            <div id="modal-eliminar-conexion" class="modal">
+                <div class="modal-content">
+                    <h2>Confirmar eliminación</h2>
+                    <p>¿Estás seguro de que deseas eliminar esta conexión?</p>
+                    <div class="modal-buttons">
+                        <button class="btn-cancelar">Cancelar</button>
+                        <button class="btn-confirmar">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Script para el código QR -->
+            <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+            <script type="module" src="js/web-key-app.js"></script>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module" src="../../js/crack.js"></script>
+    <script type="module" src="js/settings-app.js"></script>
+
+    <!-- Agregar antes de los scripts de la app -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Agregar antes del cierre del body -->
+    <div class="notificacion exito">
+        <div class="icono">✓</div>
+        <div class="mensaje"></div>
+    </div>
+
+    <div class="notificacion error">
+        <div class="icono">✕</div>
+        <div class="mensaje"></div>
+    </div>
+</body>
+</html>
